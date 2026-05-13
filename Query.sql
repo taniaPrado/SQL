@@ -41,3 +41,23 @@ WHERE FormaFarmaceutica = 'Gel' AND ViaAdministracion = 'Oral';
 
 -- v. Todos los proveedores registrados en la base de datos. 
 SELECT * FROM Proveedor;
+
+-- =================================================================
+--                CONSULTAS PRACTICA 09 
+-- =================================================================
+
+-- xi.Listar a los vendedores cuyo total de medicamentos vendidos (número de productos distintos que ofrecen) sea mayor a 3.
+
+SELECT 
+    caj.RFC,
+    caj.Nombre || ' ' || caj.Paterno || ' ' || caj.Materno AS NombreCompleto,
+    COUNT(DISTINCT tmcm.IdMedicamento) + COUNT(DISTINCT tmp.IdMedicamento) AS TotalProductosDistintos,
+    SUM(COALESCE(tmcm.CantidadComprada, 0) + COALESCE(tmp.CantidadComprada, 0)) AS TotalUnidadesVendidas
+FROM Cajero caj
+INNER JOIN Ticket t ON caj.IdSucursal = t.IdSucursal
+LEFT JOIN TenerMedComercial tmcm ON t.FolioTicket = tmcm.FolioTicket
+LEFT JOIN TenerMedPreparado tmp ON t.FolioTicket = tmp.FolioTicket
+GROUP BY caj.RFC, caj.Nombre, caj.Paterno, caj.Materno
+HAVING COUNT(DISTINCT tmcm.IdMedicamento) + COUNT(DISTINCT tmp.IdMedicamento) > 3
+ORDER BY TotalProductosDistintos DESC;
+
