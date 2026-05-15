@@ -46,13 +46,127 @@ SELECT * FROM Proveedor;
 --                CONSULTAS PRACTICA 09 
 -- =================================================================
 
--- iii. Listar todas las enfermeras cuyo apellido materno termine en Ílo.
+-- i. Mostrar el nombre completo de todos los clientes, junto con su nombre de usuario (en dado caso que se tenga una cuenta).
 
+SELECT 
+    c.Nombre || ' ' || c.Paterno || ' ' || c.Materno AS Nombre_Completo,
+    co.NombreUsuario
+FROM 
+    Cliente c
+LEFT JOIN 
+    ClienteOnline co ON c.IdCliente = co.IdCliente;
 
-SELECT * FROM Enfermero
+-- ii. Calcular cuántos medicamentos ha comprado cada cliente.
+-- Para los medicamentos comerciales
+SELECT 
+    c.Nombre || ' ' || c.Paterno || ' ' || c.Materno AS Nombre_Cliente,
+    COALESCE(SUM(tmc.CantidadComprada), 0) AS Total_Medicamentos_Comprados
+FROM 
+    Cliente c
+LEFT JOIN 
+    Ticket t ON c.IdCliente = t.IdCliente
+LEFT JOIN 
+    TenerMedComercial tmc ON t.FolioTicket = tmc.FolioTicket
+GROUP BY 
+    c.IdCliente, c.Nombre, c.Paterno, c.Materno
+ORDER BY 
+    Total_Medicamentos_Comprados DESC;
+
+-- Para los medicamentos preparados
+SELECT 
+    c.Nombre || ' ' || c.Paterno || ' ' || c.Materno AS Nombre_Cliente,
+    COALESCE(SUM(tmc.CantidadComprada), 0) AS Total_Medicamentos_Comprados
+FROM 
+    Cliente c
+LEFT JOIN 
+    Ticket t ON c.IdCliente = t.IdCliente
+LEFT JOIN 
+    TenerMedPreparado tmc ON t.FolioTicket = tmc.FolioTicket
+GROUP BY 
+    c.IdCliente, c.Nombre, c.Paterno, c.Materno
+ORDER BY 
+    Total_Medicamentos_Comprados DESC;
+
+-- Para ambos medicamentos 
+WITH DetalleTotal AS (
+    -- Unificamos ambos tipos de medicamentos en una sola lista virtual
+    SELECT FolioTicket, CantidadComprada FROM TenerMedComercial
+    UNION ALL
+    SELECT FolioTicket, CantidadComprada FROM TenerMedPreparado
+)
+SELECT 
+    c.Nombre || ' ' || c.Paterno || ' ' || c.Materno AS Nombre_Cliente,
+    COALESCE(SUM(dt.CantidadComprada), 0) AS Total_Medicamentos_Global
+FROM 
+    Cliente c
+LEFT JOIN 
+    Ticket t ON c.IdCliente = t.IdCliente
+LEFT JOIN 
+    DetalleTotal dt ON t.FolioTicket = dt.FolioTicket
+GROUP BY 
+    c.IdCliente, c.Nombre, c.Paterno, c.Materno
+ORDER BY 
+    Total_Medicamentos_Global DESC;
+
+-- iii. Listar todos las enfermeras cuyo apellido materno contenga Ílo.
+
+SELECT * FROM Enfermero 
 WHERE Materno LIKE '%Ílo%';
 
--- xi.Listar a los vendedores cuyo total de medicamentos vendidos (número de productos distintos que ofrecen) sea mayor a 3.
+-- iv. Obtener la lista de los clientes que hayan comprado en alguna sucursal pero que no hayan recibido alguna consulta.
+SELECT DISTINCT 
+    c.IdCliente,
+    c.Nombre || ' ' || c.Paterno || ' ' || c.Materno AS Nombre_Cliente
+FROM 
+    Cliente c
+INNER JOIN 
+    Ticket t ON c.IdCliente = t.IdCliente
+WHERE 
+    c.IdCliente NOT IN (
+        SELECT IdCliente 
+        FROM Consulta
+    )
+ORDER BY 
+    c.IdCliente ASC;
+
+-- v. Calcular el precio bruto por ticket.
+WITH DesgloseCostos AS (
+    -- 1. Subtotal de medicamentos comerciales
+    SELECT 
+        FolioTicket, 
+        (CantidadComprada * PrecioUnitario) AS CostoItem
+    FROM TenerMedComercial
+    
+    UNION ALL
+    
+    -- 2. Subtotal de medicamentos preparados
+    SELECT 
+        FolioTicket, 
+        (CantidadComprada * PrecioUnitario) AS CostoItem
+    FROM TenerMedPreparado
+    
+    UNION ALL
+    
+    -- 3. Costo de la consulta médica (si la hubo)
+    SELECT 
+        FolioTicket, 
+        Precio AS CostoItem
+    FROM Consulta
+)
+SELECT 
+    t.FolioTicket,
+    t.FechaPago,
+    COALESCE(SUM(dc.CostoItem), 0) AS Precio_Bruto
+FROM 
+    Ticket t
+LEFT JOIN 
+    DesgloseCostos dc ON t.FolioTicket = dc.FolioTicket
+GROUP BY 
+    t.FolioTicket, t.FechaPago
+ORDER BY 
+    t.FolioTicket ASC;
+
+-- xi. Listar a los vendedores cuyo total de medicamentos vendidos (número de productos distintos que ofrecen) sea mayor a 3.
 
 SELECT 
     caj.RFC,
@@ -138,4 +252,18 @@ LEFT JOIN VentasPorSucursal vs ON s.IdSucursal = vs.IdSucursal
 LEFT JOIN CostosPorSucursal cs ON s.IdSucursal = cs.IdSucursal
 LEFT JOIN SalariosPorSucursal ss ON s.IdSucursal = ss.IdSucursal
 ORDER BY GananciaNeta DESC;
+
+-- viii. Listar a los enfermeros, que atendieron alguna consulta durante el 7 de mayo  del 2026 en un horario de 12:00 hrs. a 16:00 hrs.
+
+SELECT 
+    e.RFC,
+    e.Nombre,
+    c.Fecha,
+    c.Hora
+FROM Enfermero e
+JOIN Consulta c 
+    ON e.RFC = c.RFCEnfermero
+WHERE c.Fecha = '2026-05-07'
+  AND c.Hora BETWEEN '12:00:00' AND '16:00:00';
+
 
