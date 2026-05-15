@@ -195,7 +195,7 @@ CostosPorSucursal AS (
     SELECT 
         emc.IdSucursal,
         SUM(emc.CantidadRecibida * emc.PrecioUnitario) AS TotalCostoMedComercial,
-        0 AS TotalCostoInsumos  -- ✅ Cambiado: 0 en lugar de SUM(ei...)
+        0 AS TotalCostoInsumos  
     FROM EntregarMedComercial emc
     GROUP BY emc.IdSucursal
     
@@ -204,7 +204,7 @@ CostosPorSucursal AS (
     -- Segunda parte: Solo costos de insumos
     SELECT 
         ei.IdSucursal,
-        0 AS TotalCostoMedComercial,  -- ✅ Cambiado: 0 en lugar de SUM(emc...)
+        0 AS TotalCostoMedComercial, 
         SUM(ei.CantidadRecibida * ei.PrecioUnitario) AS TotalCostoInsumos
     FROM EntregarInsumo ei
     GROUP BY ei.IdSucursal
