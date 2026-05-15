@@ -46,7 +46,7 @@ SELECT * FROM Proveedor;
 --                CONSULTAS PRACTICA 09 
 -- =================================================================
 
--- i.Mostrar el nombre completo de todos los clientes, junto con su nombre de usuario (en dado caso que se tenga una cuenta).
+-- i. Mostrar el nombre completo de todos los clientes, junto con su nombre de usuario (en dado caso que se tenga una cuenta).
 
 SELECT 
     c.Nombre || ' ' || c.Paterno || ' ' || c.Materno AS Nombre_Completo,
@@ -108,7 +108,7 @@ GROUP BY
 ORDER BY 
     Total_Medicamentos_Global DESC;
 
--- xi.Listar a los vendedores cuyo total de medicamentos vendidos (número de productos distintos que ofrecen) sea mayor a 3.
+-- xi. Listar a los vendedores cuyo total de medicamentos vendidos (número de productos distintos que ofrecen) sea mayor a 3.
 
 SELECT 
     caj.RFC,
