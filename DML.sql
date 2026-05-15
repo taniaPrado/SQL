@@ -790,3 +790,5 @@ INSERT INTO Consulta(Fecha,Hora,Diagnostico,Precio,IdCliente,RFCMedico,RFCEnferm
 INSERT INTO Consulta(Fecha,Hora,Diagnostico,Precio,IdCliente,RFCMedico,RFCEnfermero,FolioTicket) VALUES ('2025-08-12','15:49','Sed ante. Vivamus tortor. Duis mattis egestas metus.',794340.96,3,'QYVW9506061O4','HQFV371112968',3);
 INSERT INTO Consulta(Fecha,Hora,Diagnostico,Precio,IdCliente,RFCMedico,RFCEnfermero,FolioTicket) VALUES ('2023-05-30','2:40','Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.',8084325.61,4,'GZVK4401023P5','PEHT8302162Q0',4);
 INSERT INTO Consulta(Fecha,Hora,Diagnostico,Precio,IdCliente,RFCMedico,RFCEnfermero,FolioTicket) VALUES ('2012-11-26','5:45','In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.',8667830.21,5,'CGNT831015960','YAYP321010011',5);
+
+

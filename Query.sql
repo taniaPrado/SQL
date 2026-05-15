@@ -109,6 +109,10 @@ GROUP BY
 ORDER BY 
     Total_Medicamentos_Global DESC;
 
+-- iii. Listar todos las enfermeras cuyo apellido materno contenga Ílo.
+
+SELECT * FROM Enfermero 
+WHERE Materno LIKE '%Ílo%';
 
 -- iv. Obtener la lista de los clientes que hayan comprado en alguna sucursal pero que no hayan recibido alguna consulta.
 SELECT DISTINCT 
@@ -296,4 +300,18 @@ LEFT JOIN VentasPorSucursal vs ON s.IdSucursal = vs.IdSucursal
 LEFT JOIN CostosPorSucursal cs ON s.IdSucursal = cs.IdSucursal
 LEFT JOIN SalariosPorSucursal ss ON s.IdSucursal = ss.IdSucursal
 ORDER BY GananciaNeta DESC;
+
+-- viii. Listar a los enfermeros, que atendieron alguna consulta durante el 7 de mayo  del 2026 en un horario de 12:00 hrs. a 16:00 hrs.
+
+SELECT 
+    e.RFC,
+    e.Nombre,
+    c.Fecha,
+    c.Hora
+FROM Enfermero e
+JOIN Consulta c 
+    ON e.RFC = c.RFCEnfermero
+WHERE c.Fecha = '2026-05-07'
+  AND c.Hora BETWEEN '12:00:00' AND '16:00:00';
+
 
