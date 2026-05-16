@@ -652,16 +652,16 @@ INSERT INTO Telefonos_Medico(RFC,Telefono) VALUES ('ZVBU480406713','+74298613535
 
 -- Tablas necesarias para ejecutar el script Query.sql
 -- 10 registros de la tabla Cliente
-INSERT INTO Cliente(Nombre,Paterno,Materno,FechaNacimiento,Calle,NumeroExterior,NumeroInterior,Colonia,Estado,MetodoPago) VALUES ('Rebeca','McSpirron','Reaney','2023-08-16','Hidalgo',38,99,'La Paz','Chiapas','Tarjeta');
-INSERT INTO Cliente(Nombre,Paterno,Materno,FechaNacimiento,Calle,NumeroExterior,NumeroInterior,Colonia,Estado,MetodoPago) VALUES ('Rosa','Deekes','Dochon','2022-01-28','Callejón de los Sapos',8,58,'La Esperanza','Yucatán','Efectivo');
-INSERT INTO Cliente(Nombre,Paterno,Materno,FechaNacimiento,Calle,NumeroExterior,NumeroInterior,Colonia,Estado,MetodoPago) VALUES ('Renata','Treagus','Backhouse','1988-12-13','Zaragoza',100,88,'Miramar','Chiapas','Efectivo');
-INSERT INTO Cliente(Nombre,Paterno,Materno,FechaNacimiento,Calle,NumeroExterior,NumeroInterior,Colonia,Estado,MetodoPago) VALUES ('Ramon','Klimas','McGaraghan','1982-09-02','Juárez',73,60,'San Miguel','Durango','Tarjeta');
-INSERT INTO Cliente(Nombre,Paterno,Materno,FechaNacimiento,Calle,NumeroExterior,NumeroInterior,Colonia,Estado,MetodoPago) VALUES ('Rebeca','Foddy','Minchell','1965-01-26','Juárez',91,59,'Santa Lucía','Aguascalientes','Efectivo');
-INSERT INTO Cliente(Nombre,Paterno,Materno,FechaNacimiento,Calle,NumeroExterior,NumeroInterior,Colonia,Estado,MetodoPago) VALUES ('Rafael','Girsch','Gammill','1977-04-15','López Mateos',68,52,'San Pedro','Baja California','Tarjeta');
-INSERT INTO Cliente(Nombre,Paterno,Materno,FechaNacimiento,Calle,NumeroExterior,NumeroInterior,Colonia,Estado,MetodoPago) VALUES ('Renata','Longmate','Peachment','2025-02-24','Galeana',42,9,'Valle Verde','Chiapas','Tarjeta');
-INSERT INTO Cliente(Nombre,Paterno,Materno,FechaNacimiento,Calle,NumeroExterior,NumeroInterior,Colonia,Estado,MetodoPago) VALUES ('Rocio','Tegler','Greenhough','1961-10-26','Independencia',38,43,'Los Pinos','Chiapas','Efectivo');
-INSERT INTO Cliente(Nombre,Paterno,Materno,FechaNacimiento,Calle,NumeroExterior,NumeroInterior,Colonia,Estado,MetodoPago) VALUES ('Rebeca','Snarie','Verdey','2000-06-03','Callejón de los Sapos',77,4,'Los Pinos','Chiapas','Efectivo');
-INSERT INTO Cliente(Nombre,Paterno,Materno,FechaNacimiento,Calle,NumeroExterior,NumeroInterior,Colonia,Estado,MetodoPago) VALUES ('Rafael','Josef','Dohmann','1974-08-18','Morelos',26,70,'Revolución','Querétaro','Efectivo');
+INSERT INTO Cliente(Nombre,Paterno,Materno,FechaNacimiento,Calle,NumeroExterior,NumeroInterior,Colonia,Estado,MetodoPago) VALUES ('Rudolfo','Arnott','Mackleden','1953-03-30','López Mateos',41,92,'San Pedro','Colima','Efectivo');
+INSERT INTO Cliente(Nombre,Paterno,Materno,FechaNacimiento,Calle,NumeroExterior,NumeroInterior,Colonia,Estado,MetodoPago) VALUES ('Trixi','Zuanelli','MacVanamy','1984-09-17','Benito Juárez',44,10,'Valle Verde','Yucatán','Efectivo');
+INSERT INTO Cliente(Nombre,Paterno,Materno,FechaNacimiento,Calle,NumeroExterior,NumeroInterior,Colonia,Estado,MetodoPago) VALUES ('Renee','Schulken','Janeczek','2017-05-22','Callejón del Beso',2,65,'Bosques de Chapultepec','Durango','Tarjeta');
+INSERT INTO Cliente(Nombre,Paterno,Materno,FechaNacimiento,Calle,NumeroExterior,NumeroInterior,Colonia,Estado,MetodoPago) VALUES ('Gavin','Catterill','Morden','2011-02-17','Allende',8,1,'Revolución','Baja California','Tarjeta');
+INSERT INTO Cliente(Nombre,Paterno,Materno,FechaNacimiento,Calle,NumeroExterior,NumeroInterior,Colonia,Estado,MetodoPago) VALUES ('Elene','Deppe','Carlaw','1950-12-18','Benito Juárez',26,25,'Revolución','Colima','Efectivo');
+INSERT INTO Cliente(Nombre,Paterno,Materno,FechaNacimiento,Calle,NumeroExterior,NumeroInterior,Colonia,Estado,MetodoPago) VALUES ('Courtenay','Buntin','Crispe','1981-02-28','Obregón',63,16,'San Miguel','Tabasco','Efectivo');
+INSERT INTO Cliente(Nombre,Paterno,Materno,FechaNacimiento,Calle,NumeroExterior,NumeroInterior,Colonia,Estado,MetodoPago) VALUES ('Lorraine','Binney','Backman','1993-11-19','Gutiérrez',97,8,'Miramar','Colima','Tarjeta');
+INSERT INTO Cliente(Nombre,Paterno,Materno,FechaNacimiento,Calle,NumeroExterior,NumeroInterior,Colonia,Estado,MetodoPago) VALUES ('Yule','Facchini','Garnam','1988-03-08','Hidalgo',11,87,'La Esperanza','Baja California','Tarjeta');
+INSERT INTO Cliente(Nombre,Paterno,Materno,FechaNacimiento,Calle,NumeroExterior,NumeroInterior,Colonia,Estado,MetodoPago) VALUES ('Alonso','Bentick','Kilbourne','1961-11-03','Hidalgo',1,9,'Santa Lucía','Yucatán','Tarjeta');
+INSERT INTO Cliente(Nombre,Paterno,Materno,FechaNacimiento,Calle,NumeroExterior,NumeroInterior,Colonia,Estado,MetodoPago) VALUES ('Brander','Landor','Guidera','1951-04-07','Hidalgo',67,57,'Revolución','Aguascalientes','Tarjeta');
 
 -- 5 registros de la tabla ClienteOnline
 INSERT INTO ClienteOnline(IdCliente,NombreUsuario,Contraseña,NumeroTarjeta,FechaVencimiento) VALUES (1,'rvahl0','yV9&,z|CKBguHh>h','4784-2313-2208-3405','60/67');
@@ -769,16 +769,16 @@ INSERT INTO Contener(IdMedicamento,IdInsumo,CantidadRequerida) VALUES (2,1,16946
 
 ------------------------------------------REGISTROS NECESARIOS PARA CONSULTA xi---------------------------------------------------------------------------------------
 -- 10 registros de la tabla Ticket
-INSERT INTO Ticket(FechaPago,HoraPago,TipoVenta,IdSucursal,IdCliente) VALUES ('2030-05-27','0:31','Web',1,8);
-INSERT INTO Ticket(FechaPago,HoraPago,TipoVenta,IdSucursal,IdCliente) VALUES ('2028-02-01','15:21','Web',2,2);
-INSERT INTO Ticket(FechaPago,HoraPago,TipoVenta,IdSucursal,IdCliente) VALUES ('2024-02-19','2:05','Web',3,5);
-INSERT INTO Ticket(FechaPago,HoraPago,TipoVenta,IdSucursal,IdCliente) VALUES ('2024-03-09','12:17','Web',4,3);
-INSERT INTO Ticket(FechaPago,HoraPago,TipoVenta,IdSucursal,IdCliente) VALUES ('2029-09-06','14:57','Web',9,10);
-INSERT INTO Ticket(FechaPago,HoraPago,TipoVenta,IdSucursal,IdCliente) VALUES ('2030-01-28','6:22','Presencial',27,9);
-INSERT INTO Ticket(FechaPago,HoraPago,TipoVenta,IdSucursal,IdCliente) VALUES ('2027-03-28','22:02','Web',127,10);
-INSERT INTO Ticket(FechaPago,HoraPago,TipoVenta,IdSucursal,IdCliente) VALUES ('2021-02-26','10:50','Web',8,1);
-INSERT INTO Ticket(FechaPago,HoraPago,TipoVenta,IdSucursal,IdCliente) VALUES ('2028-04-18','5:03','Web',10,3);
-INSERT INTO Ticket(FechaPago,HoraPago,TipoVenta,IdSucursal,IdCliente) VALUES ('2021-04-15','7:09','Presencial',113,4);
+INSERT INTO Ticket(FechaPago,HoraPago,TipoVenta,IdSucursal,IdCliente) VALUES ('2021-12-31','0:58','Web',109,10);
+INSERT INTO Ticket(FechaPago,HoraPago,TipoVenta,IdSucursal,IdCliente) VALUES ('2027-04-24','10:47','Presencial',133,2);
+INSERT INTO Ticket(FechaPago,HoraPago,TipoVenta,IdSucursal,IdCliente) VALUES ('2021-09-18','12:38','Web',31,7);
+INSERT INTO Ticket(FechaPago,HoraPago,TipoVenta,IdSucursal,IdCliente) VALUES ('2026-05-28','19:26','Presencial',25,3);
+INSERT INTO Ticket(FechaPago,HoraPago,TipoVenta,IdSucursal,IdCliente) VALUES ('2029-05-30','3:10','Web',63,5);
+INSERT INTO Ticket(FechaPago,HoraPago,TipoVenta,IdSucursal,IdCliente) VALUES ('2028-08-12','22:14','Web',95,2);
+INSERT INTO Ticket(FechaPago,HoraPago,TipoVenta,IdSucursal,IdCliente) VALUES ('2022-06-30','15:46','Web',137,6);
+INSERT INTO Ticket(FechaPago,HoraPago,TipoVenta,IdSucursal,IdCliente) VALUES ('2023-05-29','9:49','Presencial',61,9);
+INSERT INTO Ticket(FechaPago,HoraPago,TipoVenta,IdSucursal,IdCliente) VALUES ('2030-10-15','13:31','Presencial',61,3);
+INSERT INTO Ticket(FechaPago,HoraPago,TipoVenta,IdSucursal,IdCliente) VALUES ('2024-05-27','23:49','Presencial',80,2);
 
 -- 5 registros de la tabla Cajero
 INSERT INTO Cajero(RFC,Nombre,Paterno,Materno,Calle,NumeroExterior,NumeroInterior,Colonia,Estado,Dia,Entrada,Salida,Salario,IdSucursal,FechaNacimiento) VALUES ('ZCMF480815X16','Harland','Percy','Tathacott','Allende',45,93,'Santa Cruz','Hidalgo','Jueves','23:05','07:05',16072913.7,1,'10/22/1996');
