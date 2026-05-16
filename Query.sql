@@ -1,52 +1,12 @@
--- i. Clientes cuyo nombre empiece con la letra R.
-SELECT * FROM Cliente 
-WHERE Nombre LIKE 'R%';
-
-
--- ii. Medicamentos que hayan caducado después del 20 de abril del 2026 pero antes del 07 de mayo del 2026.
--- Medicamentos comerciales caducados
-SELECT 
-    mc.NombreComercial, 
-    emc.FechaCaducidad
-FROM EntregarMedComercial emc
-JOIN MedComercial mc ON emc.IdMedicamento = mc.IdMedicamento
-WHERE emc.FechaCaducidad > '2026-04-20' 
-  AND emc.FechaCaducidad < '2026-05-07';
-
---Medicamentos preparados caducados por los insumos caducaron en esa fecha
-SELECT
-    mp.NombreComercial,
-    ei.FechaCaducidad
-FROM MedPreparado mp
-JOIN Contener c ON mp.IdMedicamento = c.IdMedicamento
-JOIN EntregarInsumo ei ON c.IdInsumo = ei.IdInsumo
-WHERE ei.FechaCaducidad > '2026-04-20' 
-  AND ei.FechaCaducidad < '2026-05-07';
-
-
--- iii. Farmacéuticos que hayan nacido en el mes de noviembre.
-SELECT * FROM Farmaceutico 
-WHERE EXTRACT(MONTH FROM FechaNacimiento) = 11;
-
-
---iv. Medicamentos cuya forma física sea gel y vía de administración sea oral.
--- Para los Medicamentos Comerciales
-SELECT * FROM MedComercial 
-WHERE FormaFarmaceutica = 'Gel' AND ViaAdministracion = 'Oral';
-
--- Para las Fórmulas Magistrales (Medicamentos Preparados)
-SELECT * FROM MedPreparado 
-WHERE FormaFarmaceutica = 'Gel' AND ViaAdministracion = 'Oral';
-
-
--- v. Todos los proveedores registrados en la base de datos. 
-SELECT * FROM Proveedor;
-
 -- =================================================================
---                CONSULTAS PRACTICA 09 
+--                      CONSULTAS PRACTICA 09 
 -- =================================================================
 
+
+-- ===========================================================================================================================
 -- i. Mostrar el nombre completo de todos los clientes, junto con su nombre de usuario (en dado caso que se tenga una cuenta).
+-- ===========================================================================================================================
+
 
 SELECT 
     c.Nombre || ' ' || c.Paterno || ' ' || c.Materno AS Nombre_Completo,
@@ -56,8 +16,10 @@ FROM
 LEFT JOIN 
     ClienteOnline co ON c.IdCliente = co.IdCliente;
 
-
+-- ============================================================
 -- ii. Calcular cuántos medicamentos ha comprado cada cliente.
+-- ============================================================
+
 -- Para los medicamentos comerciales
 SELECT 
     c.Nombre || ' ' || c.Paterno || ' ' || c.Materno AS Nombre_Cliente,
@@ -109,12 +71,17 @@ GROUP BY
 ORDER BY 
     Total_Medicamentos_Global DESC;
 
+-- =====================================================================
 -- iii. Listar todos las enfermeras cuyo apellido materno contenga llo.
+-- =====================================================================
 
 SELECT * FROM Enfermero 
 WHERE Materno LIKE '%llo%';
 
+-- ======================================================================================================================
 -- iv. Obtener la lista de los clientes que hayan comprado en alguna sucursal pero que no hayan recibido alguna consulta.
+-- ======================================================================================================================
+
 SELECT DISTINCT 
     c.IdCliente,
     c.Nombre || ' ' || c.Paterno || ' ' || c.Materno AS Nombre_Cliente
@@ -130,7 +97,10 @@ WHERE
 ORDER BY 
     c.IdCliente ASC;
 
+-- =======================================
 -- v. Calcular el precio bruto por ticket.
+-- =======================================
+
 WITH DesgloseCostos AS (
     -- 1. Subtotal de medicamentos comerciales
     SELECT 
@@ -167,7 +137,10 @@ GROUP BY
 ORDER BY 
     t.FolioTicket ASC;
 
+-- =======================================
 -- vi. Calcular el precio neto por ticket.
+-- =======================================
+
 WITH DesgloseCostos AS (
     -- 1. Recolectamos todos los montos brutos de los artículos y consultas
     SELECT FolioTicket, (CantidadComprada * PrecioUnitario) AS CostoItem FROM TenerMedComercial
@@ -224,8 +197,10 @@ INNER JOIN
 ORDER BY 
     tb.FolioTicket ASC;
 
-
+-- ==========================================================
 -- vii. Calcular el precio total que ha pagado cada cliente.
+-- ==========================================================
+
 WITH DesgloseCostos AS (
     -- 1. Montos brutos de artículos y consultas
     SELECT FolioTicket, (CantidadComprada * PrecioUnitario) AS CostoItem FROM TenerMedComercial
@@ -281,7 +256,10 @@ GROUP BY
 ORDER BY 
     Gasto_Total_Acumulado DESC;
 
+-- =====================================================================================================================================
 -- viii. Listar a los enfermeros, que atendieron alguna consulta durante el 7 de mayo  del 2026 en un horario de 12:00 hrs. a 16:00 hrs.
+-- =====================================================================================================================================
+
 SELECT 
     e.RFC,
     e.Nombre,
@@ -293,8 +271,10 @@ JOIN Consulta c
 WHERE c.Fecha = '2026-05-07'
     AND c.Hora BETWEEN '12:00:00' AND '16:00:00';
 
-
+-- ===================================================================================================================
 -- ix. Mostrar a todos los proveedores junto con los productos que proveen, indicando el precio unitario por producto.
+-- ===================================================================================================================
+
 SELECT 
     e.IdProveedor, 
     m.NombreComercial AS producto, 
@@ -313,16 +293,20 @@ SELECT
 FROM EntregarInsumo ei
 JOIN Insumo i ON ei.IdInsumo = i.IdInsumo;
 
-
+-- =========================================================
 -- x. Mostrar las sucursales que posean al menos 5 médicos.
+-- =========================================================
+
 SELECT s.IdSucursal, count(m.RFC) AS total_medicos
 FROM Sucursal s  
 JOIN Medico m ON s.IdSucursal = m.IdSucursal 
 GROUP BY s.IdSucursal
 HAVING count(m.RFC) >= 5;
 
-
+-- ===========================================================================================================================
 -- xi. Listar a los vendedores cuyo total de medicamentos vendidos (número de productos distintos que ofrecen) sea mayor a 3.
+-- ===========================================================================================================================
+
 SELECT 
     caj.RFC,
     caj.Nombre || ' ' || caj.Paterno || ' ' || caj.Materno AS NombreCompleto,
@@ -336,8 +320,10 @@ GROUP BY caj.RFC, caj.Nombre, caj.Paterno, caj.Materno
 HAVING COUNT(DISTINCT tmcm.IdMedicamento) + COUNT(DISTINCT tmp.IdMedicamento) > 3
 ORDER BY TotalProductosDistintos DESC;
 
-
+-- =============================================================================================================================
 -- xii. Listar a los proveedores, cuyo total de productos que proveen (numero de productos distintos que proveen) sea mayor a 3.
+-- =============================================================================================================================
+
 SELECT 
     resumen.IdProveedor, 
     COUNT(DISTINCT resumen.id_articulo) AS total_productos
@@ -355,8 +341,10 @@ FROM (
 GROUP BY resumen.IdProveedor
 HAVING COUNT(DISTINCT resumen.id_articulo) > 3;
 
-
+-- ========================================================================================================================================================
 -- xiii. Obtener las ganancias y perdidas totales (la perdida se calcula con la cantidad de productos que se le suministra el proveedor) por cada sucursal.
+-- ========================================================================================================================================================
+
 WITH VentasPorSucursal AS (
     SELECT 
         t.IdSucursal,

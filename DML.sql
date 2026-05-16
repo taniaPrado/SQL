@@ -835,7 +835,7 @@ INSERT INTO Cuidador(RFC,Nombre,Paterno,Materno,Calle,NumeroExterior,NumeroInter
 INSERT INTO Cuidador(RFC,Nombre,Paterno,Materno,Calle,NumeroExterior,NumeroInterior,Colonia,Estado,Dia,Entrada,Salida,Salario,IdSucursal,FechaNacimiento) VALUES ('XNRT820911650','Hardy','Farfolomeev','Boow','Callejón de los Sapos',20,91,'Bosques de Chapultepec','Querétaro','Domingo','20:49','04:49',71586845.35,123,'6/1/1998');
 INSERT INTO Cuidador(RFC,Nombre,Paterno,Materno,Calle,NumeroExterior,NumeroInterior,Colonia,Estado,Dia,Entrada,Salida,Salario,IdSucursal,FechaNacimiento) VALUES ('UYDS461118XR3','Reggie','Tallquist','Reavell','Hidalgo',90,80,'San José','Campeche','Martes','1:50','09:50',31494640.04,80,'9/12/2002');
 
--- 5 registros de la tabla consulta
+-- 5 registros de la tabla Consulta
 INSERT INTO Consulta(Fecha,Hora,Diagnostico,Precio,IdCliente,RFCMedico,RFCEnfermero,FolioTicket) VALUES ('2024-02-24','11:46','Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.',1439.02,10,'HYCH5611251N5','OTUC651112A40',1);
 INSERT INTO Consulta(Fecha,Hora,Diagnostico,Precio,IdCliente,RFCMedico,RFCEnfermero,FolioTicket) VALUES ('2017-09-15','2:07','In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.',1217.4,2,'CKFT850101LS1','CTUZ2012237P6',2);
 INSERT INTO Consulta(Fecha,Hora,Diagnostico,Precio,IdCliente,RFCMedico,RFCEnfermero,FolioTicket) VALUES ('2010-03-02','11:51','Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.',1486.59,7,'YJPS410109874','YAYP321010011',3);
@@ -845,6 +845,7 @@ INSERT INTO Consulta(Fecha,Hora,Diagnostico,Precio,IdCliente,RFCMedico,RFCEnferm
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------REGISTROS NECESARIOS PARA CONSULTA iii-------------------------------------------
 
+-- +5 registros de la tabla Enfermero
 INSERT INTO Enfermero(RFC,Nombre,Paterno,Materno,Calle,NumeroExterior,NumeroInterior,Colonia,Estado,Dia,Entrada,Salida,Salario,IdSucursal,TipoProcedimientoCargo,CertificacionReanimacion,CedulaProfesional,FechaNacimiento) VALUES ('FFFG860222I65','Zared','Barnicott','Guillot','Callejón de la Amargura',8,94,'Santa Cruz','La Esperanza','Miercoles','4:08','12:08',16576266.17,45,'Aplicación de Inyecciones','true',1000044,'1/8/1999');
 INSERT INTO Enfermero(RFC,Nombre,Paterno,Materno,Calle,NumeroExterior,NumeroInterior,Colonia,Estado,Dia,Entrada,Salida,Salario,IdSucursal,TipoProcedimientoCargo,CertificacionReanimacion,CedulaProfesional,FechaNacimiento) VALUES ('GNWI751108QO6','Quentin','Dorian','Solloway','Callejón de la Condesa',84,9,'Las Palmas','La Primavera','Jueves','10:55','18:55',84326688.73,57,'Colocación de Sonda','true',1000522,'3/1/1993');
 INSERT INTO Enfermero(RFC,Nombre,Paterno,Materno,Calle,NumeroExterior,NumeroInterior,Colonia,Estado,Dia,Entrada,Salida,Salario,IdSucursal,TipoProcedimientoCargo,CertificacionReanimacion,CedulaProfesional,FechaNacimiento) VALUES ('QFXS890307U96','Teriann','Caudelier','Daniello','Pino Suárez',1,36,'San Miguel','Villa de las Flores','Martes','13:44','21:44',29773997.77,110,'Atención Psiquiátrica','false',1000956,'12/3/1992');
@@ -854,6 +855,7 @@ INSERT INTO Enfermero(RFC,Nombre,Paterno,Materno,Calle,NumeroExterior,NumeroInte
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------REGISTROS NECESARIOS PARA CONSULTA viii-------------------------------------------
 
+-- +5 registros de la tabla Consulta
 INSERT INTO Consulta(Fecha,Hora,Diagnostico,Precio,IdCliente,RFCMedico,RFCEnfermero,FolioTicket) VALUES ('2026-05-07','12:55:00','Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.',1999.99,5,'CGNT831015960','HBFC4802073S8',6);
 INSERT INTO Consulta(Fecha,Hora,Diagnostico,Precio,IdCliente,RFCMedico,RFCEnfermero,FolioTicket) VALUES ('2026-05-07','15:18','In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.',5725.40,9,'AYIT890221K06','LKFO800704U51',7);
 INSERT INTO Consulta(Fecha,Hora,Diagnostico,Precio,IdCliente,RFCMedico,RFCEnfermero,FolioTicket) VALUES ('2026-05-07','12:47','Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.',5280.90,2,'XBWX9311137N1','GNWI751108QO6',8);
