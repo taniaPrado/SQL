@@ -225,6 +225,62 @@ ORDER BY
     tb.FolioTicket ASC;
 
 
+-- vii. Calcular el precio total que ha pagado cada cliente.
+WITH DesgloseCostos AS (
+    -- 1. Montos brutos de artículos y consultas
+    SELECT FolioTicket, (CantidadComprada * PrecioUnitario) AS CostoItem FROM TenerMedComercial
+    UNION ALL
+    SELECT FolioTicket, (CantidadComprada * PrecioUnitario) AS CostoItem FROM TenerMedPreparado
+    UNION ALL
+    SELECT FolioTicket, Precio AS CostoItem FROM Consulta WHERE Precio IS NOT NULL
+),
+TotalesBrutos AS (
+    -- 2. Precio Bruto por ticket
+    SELECT 
+        t.FolioTicket, t.IdCliente, t.FechaPago,
+        COALESCE(SUM(dc.CostoItem), 0) AS Precio_Bruto
+    FROM Ticket t
+    LEFT JOIN DesgloseCostos dc ON t.FolioTicket = dc.FolioTicket
+    GROUP BY t.FolioTicket, t.IdCliente, t.FechaPago
+),
+HistorialVisitas AS (
+    -- 3. Ventana de tiempo (últimos 12 meses) para calcular el % de descuento de cada ticket
+    SELECT 
+        t1.FolioTicket,
+        COUNT(t2.FolioTicket) AS NumeroVisita
+    FROM Ticket t1
+    INNER JOIN Ticket t2 ON t1.IdCliente = t2.IdCliente
+    WHERE t2.FechaPago BETWEEN (t1.FechaPago - INTERVAL '1 year') AND t1.FechaPago
+    GROUP BY t1.FolioTicket
+),
+PrecioNetoPorTicket AS (
+    -- 4. Calculamos exactamente cuánto pagó el cliente por cada ticket individual
+    SELECT 
+        tb.FolioTicket,
+        tb.IdCliente,
+        CASE 
+            WHEN hv.NumeroVisita > 6 THEN tb.Precio_Bruto * 0.75
+            WHEN hv.NumeroVisita >= 4 THEN tb.Precio_Bruto * 0.90
+            WHEN hv.NumeroVisita >= 2 THEN tb.Precio_Bruto * 0.95
+            ELSE tb.Precio_Bruto
+        END AS Precio_Neto
+    FROM TotalesBrutos tb
+    INNER JOIN HistorialVisitas hv ON tb.FolioTicket = hv.FolioTicket
+)
+-- 5. CONSULTA FINAL: Agrupamos todo el historial neto por cliente
+SELECT 
+    c.IdCliente,
+    c.Nombre || ' ' || c.Paterno || ' ' || c.Materno AS Nombre_Cliente,
+    COALESCE(SUM(pnt.Precio_Neto), 0) AS Gasto_Total_Acumulado
+FROM 
+    Cliente c
+LEFT JOIN 
+    PrecioNetoPorTicket pnt ON c.IdCliente = pnt.IdCliente
+GROUP BY 
+    c.IdCliente, c.Nombre, c.Paterno, c.Materno
+ORDER BY 
+    Gasto_Total_Acumulado DESC;
+
 -- ix. Mostrar a todos los proveedores junto con los productos que proveen, indicando el precio unitario por producto.
 SELECT 
     e.IdProveedor, 
