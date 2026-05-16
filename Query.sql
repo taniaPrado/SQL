@@ -167,6 +167,63 @@ GROUP BY
 ORDER BY 
     t.FolioTicket ASC;
 
+-- vi. Calcular el precio neto por ticket.
+WITH DesgloseCostos AS (
+    -- 1. Recolectamos todos los montos brutos de los artículos y consultas
+    SELECT FolioTicket, (CantidadComprada * PrecioUnitario) AS CostoItem FROM TenerMedComercial
+    UNION ALL
+    SELECT FolioTicket, (CantidadComprada * PrecioUnitario) AS CostoItem FROM TenerMedPreparado
+    UNION ALL
+    SELECT FolioTicket, Precio AS CostoItem FROM Consulta WHERE Precio IS NOT NULL
+),
+TotalesBrutos AS (
+    -- 2. Agrupamos para obtener el Precio Bruto por ticket
+    SELECT 
+        t.FolioTicket,
+        t.IdCliente,
+        t.FechaPago,
+        COALESCE(SUM(dc.CostoItem), 0) AS Precio_Bruto
+    FROM Ticket t
+    LEFT JOIN DesgloseCostos dc ON t.FolioTicket = dc.FolioTicket
+    GROUP BY t.FolioTicket, t.IdCliente, t.FechaPago
+),
+HistorialVisitas AS (
+    -- 3. CALCULAMOS EL ATRIBUTO DERIVADO: NumeroVisita (en los últimos 12 meses)
+    -- Se comparan los tickets contra sí mismos para contar las visitas válidas en la ventana temporal
+    SELECT 
+        t1.FolioTicket,
+        COUNT(t2.FolioTicket) AS NumeroVisita
+    FROM Ticket t1
+    INNER JOIN Ticket t2 ON t1.IdCliente = t2.IdCliente
+    WHERE t2.FechaPago BETWEEN (t1.FechaPago - INTERVAL '1 year') AND t1.FechaPago
+    GROUP BY t1.FolioTicket
+)
+SELECT 
+    tb.FolioTicket,
+    tb.FechaPago,
+    tb.Precio_Bruto,
+    hv.NumeroVisita AS Visitas_Ultimo_Año,
+    -- CALCULAMOS EL ATRIBUTO DERIVADO: PorcentajeDescuento
+    CASE 
+        WHEN hv.NumeroVisita > 6 THEN 0.25
+        WHEN hv.NumeroVisita >= 4 THEN 0.10
+        WHEN hv.NumeroVisita >= 2 THEN 0.05
+        ELSE 0.00
+    END * 100 AS Porcentaje_Descuento_Aplicado,
+    -- CALCULAMOS EL ATRIBUTO DERIVADO: PrecioNeto
+    CASE 
+        WHEN hv.NumeroVisita > 6 THEN tb.Precio_Bruto * 0.75
+        WHEN hv.NumeroVisita >= 4 THEN tb.Precio_Bruto * 0.90
+        WHEN hv.NumeroVisita >= 2 THEN tb.Precio_Bruto * 0.95
+        ELSE tb.Precio_Bruto
+    END AS Precio_Neto
+FROM 
+    TotalesBrutos tb
+INNER JOIN 
+    HistorialVisitas hv ON tb.FolioTicket = hv.FolioTicket
+ORDER BY 
+    tb.FolioTicket ASC;
+
 
 -- ix. Mostrar a todos los proveedores junto con los productos que proveen, indicando el precio unitario por producto.
 SELECT 
